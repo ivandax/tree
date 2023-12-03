@@ -3,5 +3,11 @@
     "name": "John Wick",
     "profile_picture": "https://treenation-uploads.s3.eu-central-1.amazonaws.com/default_profile.jpg",
     "registered_at": "2023-01-01 15:03:20"
-  }
+  },
+  "registrations_per_hour": [
+    { "00": "31415" },
+    { "01": "92653" },
+    { "02": "58979" },
+    { "03": "32384" }
+  ]
 }
