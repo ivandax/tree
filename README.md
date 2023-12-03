@@ -11,3 +11,5 @@ Some comments:
 
 It should look like this:
 
+![Alt text](image.png)
+

@@ -2,12 +2,9 @@
   <div class="user-info">
     <div class="graph-details">
       <div>Registrations per Hour</div>
-      <ul>
-        <li v-for="(registration, index) in registrationsPerHour" :key="index">
-          {{ Object.keys(registration)[0] }}:
-          {{ Object.values(registration)[0] }}
-        </li>
-      </ul>
+      <div class="bar-chart">
+        <BarChart :chartData="chartData" :chartOptions="chartOptions" />
+      </div>
     </div>
 
     <div class="last-user-details">
@@ -22,10 +19,14 @@
 </template>
 
 <script>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
+import BarChart from "@/components/BarChart.vue";
 
 export default {
   name: "UserInfo",
+  components: {
+    BarChart,
+  },
   props: {},
   setup() {
     const userData = ref({
@@ -35,6 +36,30 @@ export default {
     });
 
     const registrationsPerHour = ref([]);
+
+    const chartData = ref({
+      labels: [],
+      datasets: [
+        {
+          label: "Registrations per Hour",
+          backgroundColor: "blue",
+          data: [],
+        },
+      ],
+    });
+
+    const updateChartData = () => {
+      const labels = [];
+      const data = [];
+      registrationsPerHour.value.forEach((item) => {
+        const hour = Object.keys(item)[0];
+        const count = parseInt(Object.values(item)[0]);
+        labels.push(hour);
+        data.push(count);
+      });
+      chartData.value.labels = labels;
+      chartData.value.datasets[0].data = data;
+    };
 
     const fetchData = () => {
       import("@/data/data.json")
@@ -51,9 +76,14 @@ export default {
       fetchData();
     });
 
+    watch(registrationsPerHour, () => {
+      updateChartData();
+    });
+
     return {
       userData,
       registrationsPerHour,
+      chartData,
     };
   },
 };
