@@ -1,12 +1,12 @@
 <template>
   <div class="user-info">
-    <h2>Last Registered User</h2>
-    <div class="user-details">
-      <img :src="userData.profile_picture" alt="Profile Picture" />
-      <div class="details">
-        <p><strong>Name:</strong> {{ userData.name }}</p>
-        <p><strong>Registered At:</strong> {{ userData.registered_at }}</p>
+    <div class="details">
+      <div class="user-name-and-avatar">
+        <p><strong>Last registered user:</strong> {{ userData.name }}</p>
+        <img :src="userData.profile_picture" alt="Profile Picture" />
       </div>
+
+      <p><strong>Registered At:</strong> {{ userData.registered_at }}</p>
     </div>
   </div>
 </template>
@@ -47,22 +47,32 @@ export default {
 
 <style  lang="scss">
 .user-info {
-  width: 100%;
-}
-
-.user-details {
   display: flex;
-  align-items: center;
-
-  img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 20px;
-  }
 
   .details {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin: 12px;
+
+    .user-name-and-avatar {
+      display: flex;
+      align-items: center;
+
+      img {
+        margin-left: 12px;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        margin-right: 20px;
+        border: 1px solid black;
+      }
+    }
   }
 }
 </style>
