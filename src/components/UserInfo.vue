@@ -15,6 +15,11 @@
 
       <div><strong>Registered At:</strong> {{ userData.registered_at }}</div>
     </div>
+
+    <div>
+      <div>{{ counter }}</div>
+      <button @click="incrementCounter">Increment</button>
+    </div>
   </div>
 </template>
 
@@ -34,6 +39,12 @@ export default {
       profile_picture: "",
       registered_at: "",
     });
+
+    const counter = ref(0);
+
+    const incrementCounter = () => {
+      counter.value++;
+    };
 
     const registrationsPerHour = ref([]);
 
@@ -63,23 +74,33 @@ export default {
       fetchData();
     });
 
-    watch(registrationsPerHour, () => {
-      chartData.value = {
-        labels: registrationsPerHour.value.map(entry => Object.keys(entry)[0]),
-        datasets: [
-          {
-            label: 'Registrations',
-            data: registrationsPerHour.value.map(entry => parseInt(Object.values(entry)[0])),
-            backgroundColor: 'blue', // Set desired color
-          },
-        ],
-      };
-    }, { immediate: true });
+    watch(
+      registrationsPerHour,
+      () => {
+        chartData.value = {
+          labels: registrationsPerHour.value.map(
+            (entry) => Object.keys(entry)[0]
+          ),
+          datasets: [
+            {
+              label: "Registrations",
+              data: registrationsPerHour.value.map((entry) =>
+                parseInt(Object.values(entry)[0])
+              ),
+              backgroundColor: "blue",
+            },
+          ],
+        };
+      },
+      { immediate: true }
+    );
 
     return {
       userData,
       registrationsPerHour,
       chartData,
+      counter,
+      incrementCounter,
     };
   },
 };
@@ -103,11 +124,11 @@ export default {
   flex-direction: column;
 
   .graph-details {
-    @include box-mixin; // Include the mixin here
+    @include box-mixin;
   }
 
   .last-user-details {
-    @include box-mixin; // Include the mixin here
+    @include box-mixin;
     width: 50%;
 
     .user-name-and-avatar {

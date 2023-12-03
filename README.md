@@ -7,7 +7,8 @@ yarn serve
 
 Some comments:
 
- - My experience is mainly with React. The building of this demo relied heavily on the assistance of chat GPT. 
+ - The building of this demo relied heavily on the assistance of chat GPT. 
+ - The PHP file is added on this repo root folder. What is requested is a simple server that would read from the DB and return the data.
 
 It should look like this:
 
