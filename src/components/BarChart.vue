@@ -1,5 +1,6 @@
 <template>
-  <Bar :data="chartData" :options="chartOptions" />
+  <Bar v-if="chartData" :data="chartData" :options="chartOptions" />
+  <div v-else>Loading chart...</div>
 </template>
 
 <script>
@@ -38,7 +39,7 @@ export default {
     },
   },
   setup(props) {
-    console.log("BarChart component chartData:", props.chartData);
+    console.log("BarChart component chartData: 1", props.chartData);
   },
 };
 </script>

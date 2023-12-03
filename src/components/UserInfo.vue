@@ -48,19 +48,6 @@ export default {
       ],
     });
 
-    const updateChartData = () => {
-      const labels = [];
-      const data = [];
-      registrationsPerHour.value.forEach((item) => {
-        const hour = Object.keys(item)[0];
-        const count = parseInt(Object.values(item)[0]);
-        labels.push(hour);
-        data.push(count);
-      });
-      chartData.value.labels = labels;
-      chartData.value.datasets[0].data = data;
-    };
-
     const fetchData = () => {
       import("@/data/data.json")
         .then((data) => {
@@ -77,8 +64,17 @@ export default {
     });
 
     watch(registrationsPerHour, () => {
-      updateChartData();
-    });
+      chartData.value = {
+        labels: registrationsPerHour.value.map(entry => Object.keys(entry)[0]),
+        datasets: [
+          {
+            label: 'Registrations',
+            data: registrationsPerHour.value.map(entry => parseInt(Object.values(entry)[0])),
+            backgroundColor: 'blue', // Set desired color
+          },
+        ],
+      };
+    }, { immediate: true });
 
     return {
       userData,
